@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="用户ID" prop="id">
+      <el-form-item label="用户ID" prop="inviteCode">
         <el-input
-          v-model="queryParams.id"
+          v-model="queryParams.inviteCode"
           placeholder="请输入用户ID"
           clearable
           @keyup.enter.native="handleQuery"
@@ -115,8 +115,8 @@
 
     <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户ID" align="center" prop="id" />
-      <el-table-column label="邀请码" align="center" prop="inviteCode" />
+      <!-- <el-table-column label="用户ID" align="center" prop="id" /> -->
+      <el-table-column label="用户ID" align="center" prop="inviteCode" />
       <el-table-column label="用户名" align="center" prop="userName" />
       <el-table-column label="姓名" align="center" prop="realName" />
       <el-table-column label="账户余额" align="center" prop="balance" />
@@ -302,8 +302,8 @@
     <!-- 增减余额对话框 -->
     <el-dialog title="增减余额" :close-on-click-modal="false" :visible.sync="balanceOpen" width="500px" append-to-body>
       <el-form ref="balanceform" :model="balanceForm" :rules="rules" label-width="80px">
-        <el-form-item label="用户名" prop="userName">
-          <el-input v-model="balanceForm.userName" placeholder="请输入4-12位数字或字母" />
+        <el-form-item label="用户ID" prop="inviteCode">
+          <el-input v-model="balanceForm.inviteCode" placeholder="请输入ID" />
         </el-form-item>
         <el-form-item label="金额" prop="money">
           <el-input v-model="balanceForm.money" placeholder="请输入金额" />
@@ -333,8 +333,8 @@
     <!-- 上下级用户弹窗 -->
     <el-dialog title="详情" :visible.sync="detailsOpen" width="1200px" append-to-body>
       <el-table :data="detailList">
-        <el-table-column label="用户ID" align="center" prop="id"/>
-        <el-table-column label="邀请码" align="center" prop="inviteCode" />
+        <!-- <el-table-column label="用户ID" align="center" prop="id"/> -->
+        <el-table-column label="用户ID" align="center" prop="inviteCode" />
         <el-table-column label="姓名" align="center" prop="realName" />
         <el-table-column label="用户名" align="center" prop="userName" />
         <el-table-column label="银行名称" align="center" prop="bankName" />
@@ -495,6 +495,9 @@ export default {
       rules: {
         userName: [
           { required: true, message: "用户名不能为空", trigger: "blur" }
+        ],
+        inviteCode: [
+          { required: true, message: "用户ID不能为空", trigger: "blur" }
         ],
         userAgent: [
           { required: true, message: "推荐人不能为空", trigger: "blur" }
