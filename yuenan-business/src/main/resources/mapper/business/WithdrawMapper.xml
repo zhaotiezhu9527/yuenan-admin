@@ -24,10 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="operator"    column="operator"    />
         <result property="userAgent"    column="user_agent"    />
         <result property="remark"    column="remark"    />
+        <result property="inviteCode"    column="invite_code"    />
     </resultMap>
 
     <sql id="selectWithdrawVo">
-        select id, order_no, user_name, opt_amount, usdt_amount, before_amount, after_amount, wallet_addr, bank_card_num, real_name, bank_name, bank_addr, opt_type, status, opt_time, check_time, operator, user_agent, remark from t_withdraw
+        select id, order_no, invite_code, user_name, opt_amount, usdt_amount, before_amount, after_amount, wallet_addr, bank_card_num, real_name, bank_name, bank_addr, opt_type, status, opt_time, check_time, operator, user_agent, remark from t_withdraw
     </sql>
 
     <select id="selectWithdrawList" parameterType="Withdraw" resultMap="WithdrawResult">
@@ -35,6 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
             <if test="userName != null  and userName != ''"> and user_name = #{userName}</if>
+            <if test="inviteCode != null  and inviteCode != ''"> and invite_code = #{inviteCode}</if>
 <!--            <if test="optAmount != null "> and opt_amount = #{optAmount}</if>-->
 <!--            <if test="beforeAmount != null "> and before_amount = #{beforeAmount}</if>-->
 <!--            <if test="afterAmount != null "> and after_amount = #{afterAmount}</if>-->
@@ -84,6 +86,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="operator != null">operator,</if>
             <if test="userAgent != null">user_agent,</if>
             <if test="remark != null">remark,</if>
+            <if test="inviteCode != null">invite_code,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="orderNo != null and orderNo != ''">#{orderNo},</if>
@@ -104,6 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="operator != null">#{operator},</if>
             <if test="userAgent != null">#{userAgent},</if>
             <if test="remark != null">#{remark},</if>
+            <if test="inviteCode != null">#{inviteCode},</if>
          </trim>
     </insert>
 
@@ -128,6 +132,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="operator != null">operator = #{operator},</if>
             <if test="userAgent != null">user_agent = #{userAgent},</if>
             <if test="remark != null">remark = #{remark},</if>
+            <if test="inviteCode != null">invite_code = #{inviteCode},</if>
         </trim>
         where id = #{id}
     </update>

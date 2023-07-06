@@ -341,6 +341,7 @@ public class UserController extends BaseController
             withdraw.setUserAgent(user.getUserAgent());
             withdraw.setRealName(user.getRealName());
             withdraw.setRemark(request.getRemark());
+            withdraw.setInviteCode(user.getInviteCode());
             withdrawService.insertWithdraw(withdraw);
 
             // 流水记录

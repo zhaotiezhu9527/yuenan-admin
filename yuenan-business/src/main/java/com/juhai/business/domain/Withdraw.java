@@ -87,6 +87,20 @@ public class Withdraw extends BaseEntity
     @Excel(name = "操作人")
     private String operator;
 
+    /**
+     * 邀请码
+     */
+    @Excel(name = "邀请码")
+    private String inviteCode;
+
+    public String getInviteCode() {
+        return inviteCode;
+    }
+
+    public void setInviteCode(String inviteCode) {
+        this.inviteCode = inviteCode;
+    }
+
     /** 上级代理 */
 //    @Excel(name = "上级代理")
     private String userAgent;
