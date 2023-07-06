@@ -125,8 +125,8 @@
         <el-form-item label="产品名称" prop="projectName">
           <el-input v-model="form.projectName" placeholder="请输入产品名称" />
         </el-form-item>
-        <el-form-item label="项目金额(万元)" prop="projectAmount">
-          <el-input v-model="form.projectAmount" placeholder="请输入项目金额(万元)" />
+        <el-form-item label="项目金额" prop="projectAmount">
+          <el-input v-model="form.projectAmount" placeholder="请输入项目金额" />
         </el-form-item>
         <el-form-item label="收益率" prop="incomeRate">
           <el-input v-model="form.incomeRate" placeholder="请输入收益率" />
