@@ -42,6 +42,8 @@
           <el-option value="4" label="投资扣款"></el-option>
           <el-option value="5" label="投资回款"></el-option>
           <el-option value="6" label="签到"></el-option>
+          <el-option value="7" label="提现退款"></el-option>
+          <el-option value="8" label="每日利息"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="账单类型" prop="status">
@@ -110,6 +112,8 @@
           <span v-else-if="scope.row.optType === 4" type="danger">投资扣款</span>
           <span v-else-if="scope.row.optType === 5" type="danger">投资回款</span>
           <span v-else-if="scope.row.optType === 6" type="danger">签到</span>
+          <span v-else-if="scope.row.optType === 7" type="danger">提现退款</span>
+          <span v-else-if="scope.row.optType === 8" type="danger">每日利息</span>
           <span v-else type="danger">未知类型</span>
         </template>  
       </el-table-column>
