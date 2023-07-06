@@ -33,6 +33,14 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="IP" prop="lastIp">
+        <el-input
+          v-model="queryParams.lastIp"
+          placeholder="请输入IP"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="状态" prop="userStatus">
         <el-select v-model="queryParams.userStatus" placeholder="请选择">
           <el-option
