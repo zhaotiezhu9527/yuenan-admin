@@ -300,7 +300,7 @@ public class UserController extends BaseController
             account.setUserAgent(user.getUserAgent());
             account.setRefNo(orderNo);
             account.setAccountNo(IdUtil.getSnowflakeNextIdStr());
-            account.setRemark(request.getRemark());
+            account.setRemark("Hệt thống nạp tiền");
             accountService.insertAccount(account);
 
             // 记录报表
@@ -356,7 +356,7 @@ public class UserController extends BaseController
             account.setUserAgent(user.getUserAgent());
             account.setRefNo(orderNo);
             account.setAccountNo(IdUtil.getSnowflakeNextIdStr());
-            account.setRemark(request.getRemark());
+            account.setRemark("Hệ thống trừ tiền");
             accountService.insertAccount(account);
             // 下分
             return toAjax(true);
