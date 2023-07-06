@@ -1,5 +1,6 @@
 package com.juhai.web.controller.business;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
@@ -17,7 +18,6 @@ import com.juhai.common.enums.BusinessType;
 import com.juhai.common.utils.poi.ExcelUtil;
 import com.juhai.web.controller.business.request.OptUserMoneyRequest;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -247,10 +247,14 @@ public class UserController extends BaseController
 //            return AjaxResult.error("请输入备注");
 //        }
 //        User user = userService.selectUserById(NumberUtils.toLong(request.getUserName()));
-        User user = userService.getUserByName(request.getUserName());
-        if (user == null) {
+        User temp = new User();
+        temp.setInviteCode(request.getInviteCode());
+        List<User> users = userService.selectUserList(temp);
+//        User user = userService.getUserByName(request.getUserName());
+        if (CollUtil.isNotEmpty(users)) {
             return AjaxResult.error("用户不存在.");
         }
+        User user = users.get(0);
         Date now = new Date();
         BigDecimal money = new BigDecimal(request.getMoney());
         if (money.doubleValue() <= 0) {
