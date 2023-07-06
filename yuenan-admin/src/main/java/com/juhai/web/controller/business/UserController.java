@@ -246,8 +246,8 @@ public class UserController extends BaseController
 //        if (StringUtils.isBlank(request.getRemark())) {
 //            return AjaxResult.error("请输入备注");
 //        }
-        User user = userService.selectUserById(NumberUtils.toLong(request.getUserName()));
-//        User user = userService.getUserByName(request.getUserName());
+//        User user = userService.selectUserById(NumberUtils.toLong(request.getUserName()));
+        User user = userService.getUserByName(request.getUserName());
         if (user == null) {
             return AjaxResult.error("用户不存在.");
         }
