@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="registerTime != null "> and register_time = #{registerTime}</if>
             <if test="registerIp != null  and registerIp != ''"> and register_ip = #{registerIp}</if>
             <if test="lastTime != null "> and last_time = #{lastTime}</if>
-            <if test="lastIp != null  and lastIp != ''"> and last_ip = #{lastIp}</if>
+            <if test="lastIp != null  and lastIp != ''"> and last_ip like concat('%', #{lastIp}, '%') </if>
             <if test="modifyTime != null "> and modify_time = #{modifyTime}</if>
 
             <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
