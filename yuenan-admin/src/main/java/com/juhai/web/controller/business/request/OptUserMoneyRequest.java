@@ -23,4 +23,9 @@ public class OptUserMoneyRequest {
     private String amountType;
 
     private String remark;
+
+    /**
+     * 邀请码
+     */
+    private String inviteCode;
 }

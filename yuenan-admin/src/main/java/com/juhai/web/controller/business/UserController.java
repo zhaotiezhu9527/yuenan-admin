@@ -1,5 +1,6 @@
 package com.juhai.web.controller.business;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
@@ -245,10 +246,15 @@ public class UserController extends BaseController
 //        if (StringUtils.isBlank(request.getRemark())) {
 //            return AjaxResult.error("请输入备注");
 //        }
-        User user = userService.getUserByName(request.getUserName());
-        if (user == null) {
+//        User user = userService.selectUserById(NumberUtils.toLong(request.getUserName()));
+        User temp = new User();
+        temp.setInviteCode(request.getInviteCode());
+        List<User> users = userService.selectUserList(temp);
+//        User user = userService.getUserByName(request.getUserName());
+        if (CollUtil.isNotEmpty(users)) {
             return AjaxResult.error("用户不存在.");
         }
+        User user = users.get(0);
         Date now = new Date();
         BigDecimal money = new BigDecimal(request.getMoney());
         if (money.doubleValue() <= 0) {
