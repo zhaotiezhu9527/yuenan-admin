@@ -160,7 +160,7 @@ public class WithdrawController extends BaseController
     public AjaxResult check(@RequestBody WithdrawCheckRequest request) throws Exception {
 
         Withdraw withdraw = withdrawService.selectWithdrawById(NumberUtils.toLong(request.getId()));
-        if (withdraw.getStatus().intValue() != 0) {
+        if (withdraw.getStatus().intValue() != 0 && withdraw.getStatus().intValue() != 3) {
             return AjaxResult.error("该订单已被审核.");
         }
         if (StringUtils.equals(request.getStatus(), "1")) {
