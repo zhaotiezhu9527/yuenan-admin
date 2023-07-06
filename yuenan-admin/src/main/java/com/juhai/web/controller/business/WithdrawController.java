@@ -204,7 +204,7 @@ public class WithdrawController extends BaseController
             account.setBeforeAmount(user.getBalance());
             account.setAfterAmount(NumberUtil.add(user.getBalance(), withdraw.getOptAmount()));
             account.setType(1L);
-            account.setOptType(1L);
+            account.setOptType(7L);
             account.setOptTime(new Date());
             account.setUserAgent(user.getUserAgent());
             account.setRefNo(withdraw.getOrderNo());
