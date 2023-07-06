@@ -129,6 +129,7 @@
           <span v-if="scope.row.status === 0">待审核</span>
           <span v-else-if="scope.row.status === 1">到账成功</span>
           <span v-else-if="scope.row.status === 2">审核不通过</span>
+          <span v-else-if="scope.row.status === 3">已忽略</span>
         </template>
       </el-table-column>
       <el-table-column label="申请时间" align="center" prop="optTime" width="180">
@@ -145,21 +146,21 @@
             type="primary"
             @click="examineSub(scope.row,1)"
             v-hasPermi="['business:withdraw:check']"
-            v-if="scope.row.status === 0"
+            v-if="scope.row.status === 0 || scope.row.status === 3"
           >通过</el-button>
           <el-button
             size="small"
             type="danger"
             @click="examineSub(scope.row,2)"
             v-hasPermi="['business:withdraw:check']"
-            v-if="scope.row.status === 0"
+            v-if="scope.row.status === 0 || scope.row.status === 3"
           >驳回</el-button>
           <el-button
             size="small"
             type="success"
             @click="examineSub(scope.row,3)"
             v-hasPermi="['business:withdraw:check']"
-            v-if="scope.row.status === 0"
+            v-if="scope.row.status === 0 || scope.row.status === 3"
           >忽略</el-button>
           <!-- <el-button
             size="mini"
