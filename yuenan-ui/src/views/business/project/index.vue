@@ -71,7 +71,7 @@
           <img class="img-class" :src="resourceDomain.resourceDomain + scope.row.img" />
         </template> 
       </el-table-column>
-      <el-table-column label="项目金额(万元)" align="center" prop="projectAmount" />
+      <el-table-column label="项目金额" align="center" prop="projectAmount" />
       <el-table-column label="收益率（%）" align="center" prop="incomeRate" />
       <el-table-column label="期限(分钟)" align="center" prop="limitTime" />
       <el-table-column label="起投金额" align="center" prop="minAmount" />
