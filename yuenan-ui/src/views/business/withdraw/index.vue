@@ -101,6 +101,7 @@
       <!-- <el-table-column label="id" align="center" prop="id" /> -->
       <el-table-column label="订单号" align="center" prop="orderNo" />
       <el-table-column label="账户" align="center" prop="userName" />
+      <el-table-column label="用户ID" align="center" prop="inviteCode" />
       <el-table-column label="真实姓名" align="center" prop="realName" />
       <el-table-column label="提现金额" align="center" prop="optAmount" width="120"/>
       <!-- <el-table-column label="提现金额（$）" align="center" prop="usdtAmount" width="150"/> -->
@@ -137,22 +138,36 @@
       </el-table-column>
       <el-table-column label="操作人" align="center" prop="operator" />
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="200">
         <template slot-scope="scope">
           <el-button
             size="small"
             type="primary"
-            @click="handleCheck(scope.row.id)"
+            @click="examineSub(scope.row,1)"
             v-hasPermi="['business:withdraw:check']"
             v-if="scope.row.status === 0"
-          >审核</el-button>
+          >通过</el-button>
           <el-button
+            size="small"
+            type="danger"
+            @click="examineSub(scope.row,2)"
+            v-hasPermi="['business:withdraw:check']"
+            v-if="scope.row.status === 0"
+          >驳回</el-button>
+          <el-button
+            size="small"
+            type="success"
+            @click="examineSub(scope.row,3)"
+            v-hasPermi="['business:withdraw:check']"
+            v-if="scope.row.status === 0"
+          >忽略</el-button>
+          <!-- <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['business:withdraw:remove']"
-          >删除</el-button>
+          >删除</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -226,24 +241,6 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog> -->
-    <!-- 提现审核 -->
-    <el-dialog title="提交审核" :visible.sync="examineOpen" width="500px" append-to-body>
-      <el-form ref="examineform" :model="examineForm" :rules="rules" label-width="80px">
-        <el-form-item label="审核" prop="status">
-          <el-select v-model="examineForm.status" placeholder="请选择审核状态">
-            <el-option label="通过" :value="1"></el-option>
-            <el-option label="拒绝" :value="2"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input v-model="examineForm.remark" placeholder="请输入审核备注描述，没有可不填" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="examineSub">确 定</el-button>
-        <el-button @click="examineOpen = false">取 消</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -340,8 +337,6 @@ export default {
         wait: 0,//未处理
       },//其他数据
       listId: '',//提现审核id
-      examineOpen: false,//审核状态
-      examineForm: {},//审核提交数据
     };
   },
   created() {
@@ -463,21 +458,17 @@ export default {
       this.dateRange[1] = dateFormat("YYYY-mm-dd" , end) + ' 23:59:59'
     },
     // 提现审核
-    handleCheck(id){
-      this.listId = id
-      this.examineForm.id = id
-      this.examineOpen = true
-    },
-    examineSub(){
-      this.$refs["examineform"].validate(valid => {
-        if (valid) {
-          examineWithdraw(this.examineForm).then(response => {
-            this.$modal.msgSuccess("操作成功");
-            this.examineOpen = false;
-            this.getList();
-          });
-        }
-      });
+    examineSub(row,status){
+      const ids = row.id || this.ids;
+      this.$modal.confirm('是否确认操作？').then(function() {
+        return examineWithdraw({
+          id : row.id,
+          status : status
+        });
+      }).then(() => {
+        this.getList();
+        this.$modal.msgSuccess("操作成功");
+      }).catch(() => {});
     }
   }
 };

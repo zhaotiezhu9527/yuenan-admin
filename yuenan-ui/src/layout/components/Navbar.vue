@@ -45,7 +45,7 @@
     </div>
     <div>
       <audio class="success" ref="mp3"
-        src="@/assets/mp3/withdraw.mp3">
+        src="@/assets/mp3/withdraw.wav">
       </audio>
     </div>
   </div>
@@ -123,7 +123,7 @@ export default {
   created() {
     setInterval(() => {
       this.getNotice();
-    },10000)
+    },13000)
   },
 }
 </script>
