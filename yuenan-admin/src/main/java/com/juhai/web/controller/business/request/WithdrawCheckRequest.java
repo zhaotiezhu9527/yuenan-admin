@@ -11,7 +11,7 @@ public class WithdrawCheckRequest {
     private String id;
 
     /**
-     * 1：通过 2:拒绝
+     * 1：通过 2:拒绝 3:忽略
      */
     private String status;
 

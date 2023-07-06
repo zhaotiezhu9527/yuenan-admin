@@ -182,7 +182,7 @@ public class WithdrawController extends BaseController
             report.setInvestmentAmount(new BigDecimal("0"));
             report.setIncomeAmount(new BigDecimal("0"));
             userReportService.insertOrUpdate(report);
-        } else {
+        } else if (StringUtils.equals(request.getStatus(), "2")){
             // 拒绝
             Withdraw temp = new Withdraw();
             temp.setId(withdraw.getId());
@@ -211,6 +211,15 @@ public class WithdrawController extends BaseController
             account.setAccountNo(IdUtil.getSnowflakeNextIdStr());
             account.setRemark("提现退还金额:" + withdraw.getOptAmount() + "元");
             accountService.insertAccount(account);
+        } else {
+            // 拒绝
+            Withdraw temp = new Withdraw();
+            temp.setId(withdraw.getId());
+            temp.setStatus(3L);
+            temp.setRemark(request.getRemark());
+            temp.setOperator(getUsername());
+            temp.setCheckTime(new Date());
+            withdrawService.updateWithdraw(temp);
         }
         return toAjax(true);
     }

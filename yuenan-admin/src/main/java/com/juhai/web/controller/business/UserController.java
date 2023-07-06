@@ -251,7 +251,7 @@ public class UserController extends BaseController
         temp.setInviteCode(request.getInviteCode());
         List<User> users = userService.selectUserList(temp);
 //        User user = userService.getUserByName(request.getUserName());
-        if (CollUtil.isNotEmpty(users)) {
+        if (CollUtil.isEmpty(users)) {
             return AjaxResult.error("用户不存在.");
         }
         User user = users.get(0);
@@ -341,6 +341,7 @@ public class UserController extends BaseController
             withdraw.setUserAgent(user.getUserAgent());
             withdraw.setRealName(user.getRealName());
             withdraw.setRemark(request.getRemark());
+            withdraw.setInviteCode(user.getInviteCode());
             withdrawService.insertWithdraw(withdraw);
 
             // 流水记录
