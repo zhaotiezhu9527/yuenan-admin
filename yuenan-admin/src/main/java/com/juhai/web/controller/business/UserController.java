@@ -17,6 +17,7 @@ import com.juhai.common.enums.BusinessType;
 import com.juhai.common.utils.poi.ExcelUtil;
 import com.juhai.web.controller.business.request.OptUserMoneyRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -245,7 +246,8 @@ public class UserController extends BaseController
 //        if (StringUtils.isBlank(request.getRemark())) {
 //            return AjaxResult.error("请输入备注");
 //        }
-        User user = userService.getUserByName(request.getUserName());
+        User user = userService.selectUserById(NumberUtils.toLong(request.getUserName()));
+//        User user = userService.getUserByName(request.getUserName());
         if (user == null) {
             return AjaxResult.error("用户不存在.");
         }
