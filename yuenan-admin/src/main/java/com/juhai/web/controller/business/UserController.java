@@ -133,13 +133,13 @@ public class UserController extends BaseController
     public AjaxResult add(@RequestBody User user)
     {
         // 校验用户名 密码 支付密码
-        boolean matchUserName = ReUtil.isMatch("^[a-zA-Z0-9]{4,12}$", user.getUserName());
+        boolean matchUserName = ReUtil.isMatch("^[a-zA-Z0-9]{4,20}$", user.getUserName());
         if (!matchUserName) {
-            return AjaxResult.error("请输入4-12位用户名");
+            return AjaxResult.error("请输入4-20位用户名");
         }
-        boolean matchLoginPwd = ReUtil.isMatch("^[a-zA-Z0-9]{6,12}$", user.getLoginPwd());
+        boolean matchLoginPwd = ReUtil.isMatch("^[a-zA-Z0-9]{6,20}$", user.getLoginPwd());
         if (!matchLoginPwd) {
-            return AjaxResult.error("请输入6-12位登录密码");
+            return AjaxResult.error("请输入6-20位登录密码");
         }
         boolean matchPayPwd = ReUtil.isMatch("^\\d{6}$", user.getPayPwd());
         if (!matchPayPwd) {
