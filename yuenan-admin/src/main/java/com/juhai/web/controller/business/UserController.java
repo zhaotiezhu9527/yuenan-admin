@@ -300,7 +300,7 @@ public class UserController extends BaseController
             account.setUserAgent(user.getUserAgent());
             account.setRefNo(orderNo);
             account.setAccountNo(IdUtil.getSnowflakeNextIdStr());
-            account.setRemark("Hệt thống nạp tiền");
+            account.setRemark("Hệ thống nạp tiền");
             accountService.insertAccount(account);
 
             // 记录报表
