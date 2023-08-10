@@ -15,10 +15,12 @@ import com.juhai.common.core.controller.BaseController;
 import com.juhai.common.core.domain.AjaxResult;
 import com.juhai.common.core.page.TableDataInfo;
 import com.juhai.common.enums.BusinessType;
+import com.juhai.common.utils.RedisKeyUtil;
 import com.juhai.common.utils.poi.ExcelUtil;
 import com.juhai.web.controller.business.request.OptUserMoneyRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +59,9 @@ public class UserController extends BaseController
 
     @Autowired
     private IUserReportService userReportService;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     /**
      * 查询【请填写功能名称】列表
@@ -215,6 +220,10 @@ public class UserController extends BaseController
         }
         user.setBalance(null);
 
+        User redisUser = userService.selectUserById(user.getId());
+        // 删除密码限制
+        String incKey = RedisKeyUtil.PayPwdErrorKey(redisUser.getUserName());
+        redisTemplate.delete(incKey);
         return toAjax(userService.updateUser(user));
     }
 
