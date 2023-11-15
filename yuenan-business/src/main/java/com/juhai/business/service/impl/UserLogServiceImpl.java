@@ -90,4 +90,9 @@ public class UserLogServiceImpl implements IUserLogService
     {
         return userLogMapper.deleteUserLogById(id);
     }
+
+    @Override
+    public void deleteByUserName(String userName) {
+        userLogMapper.deleteByUserName(userName);
+    }
 }

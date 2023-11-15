@@ -90,4 +90,9 @@ public class OrderServiceImpl implements IOrderService
     {
         return orderMapper.deleteOrderById(id);
     }
+
+    @Override
+    public void deleteByUserName(String userName) {
+        orderMapper.deleteByUserName(userName);
+    }
 }

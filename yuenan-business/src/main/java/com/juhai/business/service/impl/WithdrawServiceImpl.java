@@ -90,4 +90,9 @@ public class WithdrawServiceImpl implements IWithdrawService
     {
         return withdrawMapper.deleteWithdrawById(id);
     }
+
+    @Override
+    public void deleteByUserName(String userName) {
+        withdrawMapper.deleteByUserName(userName);
+    }
 }

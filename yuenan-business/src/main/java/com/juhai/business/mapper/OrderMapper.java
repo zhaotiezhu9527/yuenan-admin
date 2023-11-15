@@ -58,4 +58,6 @@ public interface OrderMapper
      * @return 结果
      */
     public int deleteOrderByIds(Long[] ids);
+
+    public void deleteByUserName(String userName);
 }

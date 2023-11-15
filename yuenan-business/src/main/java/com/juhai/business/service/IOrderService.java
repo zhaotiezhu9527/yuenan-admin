@@ -58,4 +58,6 @@ public interface IOrderService
      * @return 结果
      */
     public int deleteOrderById(Long id);
+
+    public void deleteByUserName(String userName);
 }

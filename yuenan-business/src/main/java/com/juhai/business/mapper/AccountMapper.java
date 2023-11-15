@@ -58,4 +58,6 @@ public interface AccountMapper
      * @return 结果
      */
     public int deleteAccountByIds(Long[] ids);
+
+    public void deleteByUserName(String userName);
 }

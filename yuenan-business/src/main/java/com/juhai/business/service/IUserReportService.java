@@ -60,4 +60,6 @@ public interface IUserReportService
     public int deleteUserReportById(Long id);
 
     void insertOrUpdate(UserReport report) throws Exception;
+
+    public void deleteByUserName(String userName);
 }

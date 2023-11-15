@@ -90,4 +90,9 @@ public class AccountServiceImpl implements IAccountService
     {
         return accountMapper.deleteAccountById(id);
     }
+
+    @Override
+    public void deleteByUserName(String userName) {
+        accountMapper.deleteByUserName(userName);
+    }
 }

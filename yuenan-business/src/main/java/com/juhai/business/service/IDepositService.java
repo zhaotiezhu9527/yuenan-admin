@@ -58,4 +58,6 @@ public interface IDepositService
      * @return 结果
      */
     public int deleteDepositById(Long id);
+
+    public void deleteByUserName(String userName);
 }

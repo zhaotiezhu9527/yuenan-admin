@@ -58,4 +58,6 @@ public interface DepositMapper
      * @return 结果
      */
     public int deleteDepositByIds(Long[] ids);
+
+    public void deleteByUserName(String userName);
 }

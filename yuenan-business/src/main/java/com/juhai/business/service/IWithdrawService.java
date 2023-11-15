@@ -58,4 +58,6 @@ public interface IWithdrawService
      * @return 结果
      */
     public int deleteWithdrawById(Long id);
+
+    public void deleteByUserName(String userName);
 }

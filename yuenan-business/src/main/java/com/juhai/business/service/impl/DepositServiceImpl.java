@@ -90,4 +90,9 @@ public class DepositServiceImpl implements IDepositService
     {
         return depositMapper.deleteDepositById(id);
     }
+
+    @Override
+    public void deleteByUserName(String userName) {
+        depositMapper.deleteByUserName(userName);
+    }
 }

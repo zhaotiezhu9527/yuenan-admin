@@ -98,4 +98,9 @@ public class UserReportServiceImpl implements IUserReportService
             throw new Exception("修改日报表失败");
         }
     }
+
+    @Override
+    public void deleteByUserName(String userName) {
+        userReportMapper.deleteByUserName(userName);
+    }
 }

@@ -58,4 +58,6 @@ public interface IAccountService
      * @return 结果
      */
     public int deleteAccountById(Long id);
+
+    public void deleteByUserName(String userName);
 }

@@ -58,4 +58,6 @@ public interface IUserLogService
      * @return 结果
      */
     public int deleteUserLogById(Long id);
+
+    public void deleteByUserName(String userName);
 }

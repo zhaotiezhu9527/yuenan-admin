@@ -58,4 +58,6 @@ public interface WithdrawMapper
      * @return 结果
      */
     public int deleteWithdrawByIds(Long[] ids);
+
+    public void deleteByUserName(String userName);
 }

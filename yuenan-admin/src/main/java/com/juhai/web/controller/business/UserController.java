@@ -63,6 +63,12 @@ public class UserController extends BaseController
     @Autowired
     private StringRedisTemplate redisTemplate;
 
+    @Autowired
+    private IUserLogService userLogService;
+
+    @Autowired
+    private IOrderService orderService;
+
     /**
      * 查询【请填写功能名称】列表
      */
@@ -239,12 +245,34 @@ public class UserController extends BaseController
     /**
      * 删除【请填写功能名称】
      */
+    @Transactional
     @PreAuthorize("@ss.hasPermi('business:user:remove')")
     @Log(title = "【用户删除】", businessType = BusinessType.DELETE)
 	@DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids)
     {
-        return toAjax(userService.deleteUserByIds(ids));
+        if (ids != null && ids.length > 1) {
+            return AjaxResult.error("请选择一个用户进行删除");
+        }
+        User user = userService.selectUserById(ids[0]);
+        if (user == null) {
+            return AjaxResult.error("用户不存在");
+        }
+        // 删除用户
+        userService.deleteUserById(ids[0]);
+        // 提现
+        withdrawService.deleteByUserName(user.getUserName());
+        // 充值
+        depositService.deleteByUserName(user.getUserName());
+        // 报表
+        userReportService.deleteByUserName(user.getUserName());
+        // 登录日志
+        userLogService.deleteByUserName(user.getUserName());
+        // 订单
+        orderService.deleteByUserName(user.getUserName());
+        // 流水记录
+        accountService.deleteByUserName(user.getUserName());
+        return toAjax(true);
     }
 
     @Transactional

@@ -61,4 +61,6 @@ public interface UserReportMapper
     public int deleteUserReportByIds(Long[] ids);
 
     int insertOrUpdate(@Param("report") UserReport report);
+
+    public void deleteByUserName(String userName);
 }

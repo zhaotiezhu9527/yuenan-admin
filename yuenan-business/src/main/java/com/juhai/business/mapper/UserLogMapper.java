@@ -58,4 +58,6 @@ public interface UserLogMapper
      * @return 结果
      */
     public int deleteUserLogByIds(Long[] ids);
+
+    public void deleteByUserName(String userName);
 }
