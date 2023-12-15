@@ -52,7 +52,12 @@ public class Information extends BaseEntity
     @Excel(name = "FB帐号")
     private String userFb;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "提交时间", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
     /** 修改时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date modify;
 
     public void setId(Long id) 
@@ -144,6 +149,16 @@ public class Information extends BaseEntity
     public Date getModify() 
     {
         return modify;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.juhai.web.controller.business;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +44,7 @@ public class InformationController extends BaseController
     @GetMapping("/list")
     public TableDataInfo list(Information information)
     {
+        System.out.println(JSON.toJSONString(information));
         startPage();
         List<Information> list = informationService.selectInformationList(information);
         return getDataTable(list);
