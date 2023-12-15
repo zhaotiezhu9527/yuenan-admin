@@ -25,6 +25,18 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="时间" prop="createTime">
+        <el-date-picker
+          v-model="dateRange"
+          style="width: 340px"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetimerange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+          :picker-options="pickerOptions"
+        ></el-date-picker>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -78,8 +90,8 @@
     </el-row>
 
     <el-table v-loading="loading" :data="informationList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="id" align="center" prop="id" />
+      <!-- <el-table-column type="selection" width="55" align="center" /> -->
+      <!-- <el-table-column label="id" align="center" prop="id" /> -->
       <el-table-column label="用户名" align="center" prop="userName" />
       <el-table-column label="手机号" align="center" prop="userPhone" />
       <el-table-column label="年龄" align="center" prop="userAge" />
@@ -88,9 +100,9 @@
       <el-table-column label="车房" align="center" prop="userCar" />
       <el-table-column label="婚姻情况" align="center" prop="userMarriage" />
       <el-table-column label="FB帐号" align="center" prop="userFb" />
-      <el-table-column label="提交" align="center" prop="createTime" width="180">
+      <el-table-column label="时间" align="center" prop="createTime" width="180">
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -203,7 +215,36 @@ export default {
         userName: [
           { required: true, message: "用户名不能为空", trigger: "blur" }
         ],
-      }
+      },
+      // 时间
+      dateRange:[],
+      pickerOptions: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+      },
     };
   },
   created() {
@@ -213,7 +254,7 @@ export default {
     /** 查询收集用户列表列表 */
     getList() {
       this.loading = true;
-      listInformation(this.queryParams).then(response => {
+      listInformation(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
         this.informationList = response.rows;
         this.total = response.total;
         this.loading = false;
