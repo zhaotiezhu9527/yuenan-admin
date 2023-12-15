@@ -52,6 +52,9 @@ public class Information extends BaseEntity
     @Excel(name = "FB帐号")
     private String userFb;
 
+    @Excel(name = "提交时间", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
     /** 修改时间 */
     private Date modify;
 
@@ -144,6 +147,16 @@ public class Information extends BaseEntity
     public Date getModify() 
     {
         return modify;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override
