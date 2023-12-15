@@ -27,6 +27,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
         </where>
+        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            AND date_format(opt_time,'%Y-%m-%d %H:%i:%S') &gt;= date_format(#{params.beginTime},'%Y-%m-%d %H:%i:%S')
+        </if>
+        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+            AND date_format(opt_time,'%Y-%m-%d %H:%i:%S') &lt;= date_format(#{params.endTime},'%Y-%m-%d %H:%i:%S')
+        </if>
         ORDER BY create_time desc
     </select>
     
