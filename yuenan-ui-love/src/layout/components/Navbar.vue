@@ -121,9 +121,10 @@ export default {
     }
   },
   created() {
-    setInterval(() => {
-      this.getNotice();
-    },13000)
+    // 去掉提示音轮训
+    // setInterval(() => {
+    //   this.getNotice();
+    // },13000)
   },
 }
 </script>
