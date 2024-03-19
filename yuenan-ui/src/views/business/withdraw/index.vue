@@ -302,6 +302,7 @@ export default {
         { label: '待审核', value: 0},
         { label: '提现成功', value: 1},
         { label: '审核不通过', value: 2},
+        { label: '已忽略', value: 3},
       ],//银行卡状态
       //时间
       dateRange:[],
